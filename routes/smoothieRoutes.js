@@ -5,7 +5,7 @@ const { requireAuth } = require("../middleware/authMiddleware");
 const srouter = express.Router();
 
 srouter.get("/createSmoothie", smoothieController.createSmoothie_get);
-srouter.get("/allRecipes", requireAuth, smoothieController.allRecipes_get);
+srouter.get("/allRecipes", smoothieController.allRecipes_get);
 srouter.get("/myRecipes", smoothieController.myRecipes_get);
 srouter.get("/allRecipes/:id", smoothieController.smoothie_details);
 srouter.delete("/allRecipes/:id", smoothieController.smoothie_delete);

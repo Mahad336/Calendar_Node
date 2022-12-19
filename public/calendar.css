@@ -1,0 +1,281 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8rem 10rem;
+    background-color: #e6e6e6;
+}
+
+.main {
+    background-color: white;
+    opacity: 95%;
+    min-height: 80rem;
+    min-width: 80rem;
+    z-index: 1;
+}
+
+#datesec {
+    display: flex;
+    height: 5rem;
+    background-color: whitesmoke;
+    border-bottom: 2px solid grey;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#datesec>p {
+    font-size: larger;
+    padding-right: 2rem;
+}
+
+#daily {
+    display: flex;
+    flex-direction: column;
+
+    height: auto;
+    background-color: #e6e6e6;
+    justify-content: right;
+    align-items: flex-end;
+}
+
+.evt {
+    margin-bottom: 10px;
+
+    display: flex;
+    width: 60rem;
+    height: 90%;
+    background-color: white;
+    border-left: 1rem solid rgb(0, 191, 0);
+    align-items: center;
+    justify-content: start;
+    text-indent: 0.5rem;
+}
+
+
+.evt>p,
+h1 {
+    font-size: larger;
+}
+
+.gray {
+    color: grey;
+}
+
+
+
+.allDayLoc {
+    color: rgb(30, 143, 30);
+}
+
+/* Time Table */
+#AM {
+    display: flex;
+    height: 25rem;
+    border-top: 2px solid #96134d;
+    background-color: #fef6f8;
+}
+
+#PM {
+    display: flex;
+    height: 70rem;
+    border-top: 2px solid #47adf5;
+    background-color: #eefefe;
+}
+
+#red {
+    color: #96134d;
+}
+
+#blue {
+    color: #47adf5;
+}
+
+#time span {
+    font-size: 60px;
+    font-weight: lighter;
+    text-align: center;
+    text-indent: 1rem;
+    padding-top: 2rem;
+    padding-right: 1rem;
+    z-index: 0;
+}
+
+.timespan {
+    display: flex;
+    width: 80rem;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.completehour {
+    display: flex;
+    flex-direction: row;
+
+    border-top: 1px solid #a5a3a3;
+    width: 95%;
+    height: 4rem;
+}
+
+.completehour1 {
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    height: 4rem;
+}
+
+.halfhour {
+    display: flex;
+    flex-direction: row;
+    color: #999798;
+    border-top: 1px solid #e3dfe0;
+    width: 85%;
+    height: 4rem;
+
+}
+
+/* Events */
+
+.event {
+    /* un comment this to change it to early start early display  */
+    /* margin-left: 10px;; */
+
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border-left: 1rem solid rgb(0, 191, 0);
+    justify-content: start;
+    text-indent: 0.5rem;
+    line-height: 3px;
+    z-index: 1;
+}
+#currUSER{
+    display: none;
+}
+
+
+
+ul{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  
+}
+nav ul{
+  display: flex;
+  align-items: center;
+}
+nav li{
+  margin-left: 10px;
+}
+nav li a{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1em;
+  display: block;
+  padding: 7px 10px;
+  letter-spacing: 2px;
+}
+.btn{
+  border-radius: 36px;
+  background: #FEE996;
+}
+form h2{
+  font-size: 2.4em;
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+form{
+  width: 360px;
+  margin: 0 auto;
+  padding: 30px;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background: white;
+}
+input{
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+  width: 100%;
+}
+label{
+  display: block;
+  margin: 20px 0 10px;
+}
+button{
+  margin-top: 30px;
+  border-radius: 36px;
+  background: #FEE996;
+  border:0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8em;
+  display: block;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+}
+.error{
+  color: #ff0099;
+  margin: 10px 2px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+header{
+  display: flex;
+  align-items: center;
+}
+header img{
+  width: 250px;
+  margin-right: 40px;
+}
+header h2{
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+header h3{
+  font-size: 1.6em;
+  margin-bottom: 10px;
+  margin-left: 2px;
+  color: #999;
+}
+header .btn{
+  margin-top: 20px;
+  padding: 12px 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 0.8em;
+}
+.recipes{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 30px;
+  row-gap: 80px;
+  margin: 80PX AUTO;
+  max-width: 1200px;
+}
+.recipe{
+  display: inline-block;
+  border-radius: 20px;
+  background: white;
+  position: relative;
+  text-align: center;
+  padding: 0 20px 30px 20px
+}
+.recipe img{
+  width: 100px;
+  margin: -30px auto 20px;
+}
+footer{
+  text-align: center;
+  margin-top: 120px;
+  color: #aaa;
+}

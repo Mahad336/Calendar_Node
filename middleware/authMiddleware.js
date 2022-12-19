@@ -20,6 +20,7 @@ const requireAuth = (req, res, next) => {
 };
 
 // check current user
+let currUser;
 const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
@@ -30,6 +31,7 @@ const checkUser = (req, res, next) => {
       } else {
         let user = await User.findById(decodedToken.id);
         res.locals.user = user;
+        currUser = user;
         next();
       }
     });
@@ -39,4 +41,4 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser, currUser };

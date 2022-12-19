@@ -1,0 +1,173 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+
+  <body>
+    <nav>
+      <h1><a href="/calendar">Calendar</a></h1>
+      <ul>
+        <% if (user) { %>
+        <li>
+          Welcome,
+          <span id="user"> <%= user.email%> </span>
+        </li>
+        <li><a href="/allRecipes">All Recipes</a></li>
+        <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/createSmoothie">Add new Recipe</a></li>
+        <li><a href="/logout">Log out</a></li>
+        <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <div class="create-blog content">
+      <form class="sform" action="/createSmoothie">
+        <label for="title">Event Name:</label>
+        <input type="text" id="title" name="Ename" required />
+        <label for="snippet">Event location:</label>
+        <input type="text" id="snippet" name="Eloc" required"/>
+        <div class="sTime">
+        <label for="sTime">Start Time:</label>
+        <select id="title" class="sTime" name="sTime">
+          <option value="9:00am">9:00am</option>
+          <option value="9:30am">9:30am</option>
+          <option value="10:00am">10:00am</option>
+          <option value="10:30am">10:30am</option>
+          <option value="11:00am">11:00am</option>
+          <option value=11:30am">11:30am</option>
+          <option value="12:00pm">12:00pm</option>
+          <option value="1:00pm">1:00pm</option>
+          <option value="1:30pm">1:30pm</option>
+          <option value="2:00pm">2:00pm</option>
+          <option value="2:30am">2:30pm</option>
+          <option value="3:00pm">3:00pm</option>
+          <option value="3:30pm">3:30pm</option>
+          <option value="4:00pm">4:00pm</option>
+          <option value="4:30pm">4:30pm</option>
+          <option value="5:00pm">5:00pm</option>
+          <option value="5:30pm">5:30pm</option>
+          <option value="6:00pm">6:00pm</option>
+          <option value="7:00pm">7:00pm</option>
+          <option value="7:30pm">7:30pm</option>
+          
+        </select>
+        </div>
+        <!-- <input type="text" id="title" name="sTime" required /> -->
+        <div class="eTime">
+        <label for="eTime">End Time:</label>
+        <select id="title" class="eTime" name="eTime">
+          <option value="9:30am">9:30am</option>
+          <option value="10:00am">10:00am</option>
+          <option value="10:30am">10:30am</option>
+          <option value="11:00am">11:00am</option>
+          <option value=11:30am">11:30am</option>
+          <option value="12:00pm">12:00pm</option>
+          <option value="1:00pm">1:00pm</option>
+          <option value="1:30pm">1:30pm</option>
+          <option value="2:00pm">2:00pm</option>
+          <option value="2:30am">2:30pm</option>
+          <option value="3:00pm">3:00pm</option>
+          <option value="3:30pm">3:30pm</option>
+          <option value="4:00pm">4:00pm</option>
+          <option value="4:30pm">4:30pm</option>
+          <option value="5:00pm">5:00pm</option>
+          <option value="5:30pm">5:30pm</option>
+          <option value="6:00pm">6:00pm</option>
+          <option value="7:00pm">7:00pm</option>
+          <option value="7:30pm">7:30pm</option>
+          <option value="8:00pm">8:00pm</option>
+          
+        </select>
+        </div>
+        <!-- <input type="text" id="snippet" name="eTime" required"/> -->
+        <label id="requiredUrl"><%=url%></label>
+
+        <% if(url.includes("edit")) { %>
+        <button>Save</button>
+        <% } else { %>
+
+        <button>Add</button> <%}%>
+      </form>
+    </div>
+
+    <footer>Copyright &copy; Blog Ninja 2020</footer>
+
+    <script>
+      const form = document.querySelector("form");
+      const user = document.getElementById("user");
+      const requiredUrl = document.getElementById("requiredUrl");
+      const btn = document.querySelector("button");
+      const edit_body = document.querySelector("#edit_body");
+
+      if (btn.textContent == "Add") {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          // get values
+          const Ename = form.Ename.value;
+          const Eloc = form.Eloc.value;
+          const sTime = form.sTime.value;
+          const eTime = form.eTime.value;
+          const createdBy = user.textContent;
+          console.log(sTime, eTime);
+
+           try {
+             const res = await fetch("/createEvent", {
+               method: "POST",
+               body: JSON.stringify({
+                 Ename,
+                 Eloc,
+                 sTime,
+                 eTime,
+                 createdBy,
+               }),
+              headers: { "Content-Type": "application/json" },
+            });
+             const data = await res.json();
+
+             location.assign("/calendar");
+           } catch (err) {
+           console.log(err);
+           }
+        });
+      }
+      if (btn.textContent == "Save") {
+        let title = document.getElementById("title");
+        let snippet = document.getElementById("snippet");
+        let body = document.getElementById("body");
+        // console.log(edit_body.textContent.title);
+        // title.placeholder = edit_body.title;
+        // snippet.placeholder = edit_body.snippet;
+        // body.placeholder = edit_body.body;
+      }
+
+      if (btn.textContent == "Save") {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          // get values
+          const title = form.title.value;
+          const snippet = form.snippet.value;
+          const body = form.body.value;
+          const createdBy = user.textContent;
+          try {
+            const res = await fetch(`${requiredUrl.textContent.trim()}`, {
+              method: "PUT",
+              body: JSON.stringify({
+                title,
+                snippet,
+                body,
+                createdBy,
+              }),
+              headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
+
+            location.assign("/allRecipes");
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
