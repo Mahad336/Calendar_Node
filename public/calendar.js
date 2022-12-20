@@ -11,27 +11,26 @@ try {
   const data = await res.json();
   newData = data;
   //location.assign("/allRecipes");
+  newData.forEach((element) => {
+    if (element.createdBy.trim() == currUSER && element.isallday == false) {
+      makeEvent(
+        element.Ename,
+        element.Eloc,
+        element.sTime,
+        element.eTime,
+        element._id
+      );
+    }
+  });
+
+  newData.forEach((element) => {
+    if (element.isallday == true && element.createdBy.trim() == currUSER) {
+      makeAlldy(element.Ename, element.Eloc, element._id);
+    }
+  });
 } catch (err) {
   console.log(err);
 }
-
-newData.forEach((element) => {
-  if (element.createdBy.trim() == currUSER && element.isallday == false) {
-    makeEvent(
-      element.Ename,
-      element.Eloc,
-      element.sTime,
-      element.eTime,
-      element._id
-    );
-  }
-});
-
-newData.forEach((element) => {
-  if (element.isallday == true && element.createdBy.trim() == currUSER) {
-    makeAlldy(element.Ename, element.Eloc, element._id);
-  }
-});
 
 function makeAlldy(name, loc, ID) {
   var allDayEvt = document.createElement("div");
