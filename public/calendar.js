@@ -16,16 +16,24 @@ try {
 }
 
 newData.forEach((element) => {
-  if (element.createdBy.trim() == currUSER) {
-    makeEvent(element.Ename, element.Eloc, element.sTime, element.eTime);
+  if (element.createdBy.trim() == currUSER && element.isallday == false) {
+    makeEvent(
+      element.Ename,
+      element.Eloc,
+      element.sTime,
+      element.eTime,
+      element._id
+    );
   }
 });
 
-allDay.forEach((element) => {
-  makeAlldy(element.name, element.loc);
+newData.forEach((element) => {
+  if (element.isallday == true && element.createdBy.trim() == currUSER) {
+    makeAlldy(element.Ename, element.Eloc, element._id);
+  }
 });
 
-function makeAlldy(name, loc) {
+function makeAlldy(name, loc, ID) {
   var allDayEvt = document.createElement("div");
 
   let AllTime = document.createElement("h1");
@@ -45,13 +53,18 @@ function makeAlldy(name, loc) {
   allDayEvt.appendChild(allEname);
   allDayEvt.appendChild(allEloc);
 
+  allDayEvt.style.cursor = "pointer";
+  allDayEvt.addEventListener("click", () => {
+    window.location.href = `calendar/${ID}/edit`;
+  });
+
   var elall = document.getElementById("daily");
   elall.appendChild(allDayEvt);
 }
 
 //MAKE EVENT FUNCTION TO CONVERT TIME TO 24 HRS FORMAT
 
-export function makeEvent(name, loc, sTime, Etime) {
+export function makeEvent(name, loc, sTime, Etime, ID) {
   var timeToDisplay = sTime;
   if (sTime.includes("12")) {
     sTime = sTime.split("p")[0];
@@ -136,6 +149,7 @@ export function makeEvent(name, loc, sTime, Etime) {
     sTime: sTime,
     eTime: Etime,
     nametodisp: timeToDisplay,
+    ID: ID,
   };
 
   var etname = `event${count}`;
@@ -156,7 +170,7 @@ function setAllDay(newLoc, newEvent) {
 
 //FUNCTION CREATE EVENTS CREATE EVENT BY DOM MANUPLATION TO RENDER IT OWN SCREEN
 
-function createEvent(eventName, loc, time, endtime, disp) {
+function createEvent(eventName, loc, time, endtime, disp, ID) {
   var tag = document.createElement("div");
   tag.classList.add("event");
   idd = k.toString();
@@ -173,6 +187,11 @@ function createEvent(eventName, loc, time, endtime, disp) {
   tag.appendChild(ti);
   tag.appendChild(name);
   tag.appendChild(location);
+  tag.style.cursor = "pointer";
+  tag.addEventListener("click", () => {
+    window.location.href = `calendar/${ID}/edit`;
+  });
+
   var element = document.getElementById(time);
   element.appendChild(tag);
   k++;
@@ -211,7 +230,8 @@ eventArray.forEach((element) => {
     element.loc,
     element.sTime,
     element.eTime,
-    element.nametodisp
+    element.nametodisp,
+    element.ID
   );
   renderArray.push(m);
 });

@@ -12,6 +12,7 @@
         </li>
         <li><a href="/allRecipes">All Recipes</a></li>
         <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/calendar">My Calendar</a></li>
         <li><a href="/createSmoothie">Add new Recipe</a></li>
         <li><a href="/logout">Log out</a></li>
         <% } else { %>
@@ -24,10 +25,22 @@
     <div class="create-blog content">
       <form class="sform" action="/createSmoothie">
         <label for="title">Event Name:</label>
-        <input type="text" id="title" name="Ename" required />
+        <input type="text" id="title" name="Ename" required value="<%=url.includes('edit') ? body?.Ename : "" %>"/>
         <label for="snippet">Event location:</label>
-        <input type="text" id="snippet" name="Eloc" required"/>
-        <div class="sTime">
+        <input type="text" id="snippet" name="Eloc" required value="<%=url.includes('edit') ? body?.Eloc : "" %>"/>
+        <div style="display: flex;">
+        <label for="All day">All day</label>
+        <input type="radio" id="allday" name="chooseEvent" value="All day"
+        onclick="show(1)" checked style="width: 20px; margin: 22px 0px 0px 69px;">
+        </div >
+        <div style="display: flex;">
+        <label for="All day">Part of day</label>
+        <input type="radio" id="partofday" name="chooseEvent" value="Part of day" onclick="show(0)" style="width: 20px; margin: 25px 0px 0px 40px;"></div>
+
+
+
+
+        <div class="sTime" style="display: none;">
         <label for="sTime">Start Time:</label>
         <select id="title" class="sTime" name="sTime">
           <option value="9:00am">9:00am</option>
@@ -54,7 +67,7 @@
         </select>
         </div>
         <!-- <input type="text" id="title" name="sTime" required /> -->
-        <div class="eTime">
+        <div class="eTime" style="display: none;">
         <label for="eTime">End Time:</label>
         <select id="title" class="eTime" name="eTime">
           <option value="9:30am">9:30am</option>
@@ -84,7 +97,8 @@
         <label id="requiredUrl"><%=url%></label>
 
         <% if(url.includes("edit")) { %>
-        <button>Save</button>
+        <button>Update</button>
+        <button class="deletee">Delete</button>
         <% } else { %>
 
         <button>Add</button> <%}%>
@@ -94,12 +108,36 @@
     <footer>Copyright &copy; Blog Ninja 2020</footer>
 
     <script>
+  
       const form = document.querySelector("form");
       const user = document.getElementById("user");
       const requiredUrl = document.getElementById("requiredUrl");
       const btn = document.querySelector("button");
+      const delete_btn = document.querySelector(".deletee");
       const edit_body = document.querySelector("#edit_body");
+      let isallday = document.querySelector("#allday").checked;
 
+function show(x){
+  if(x==0){
+  document.querySelector(".sTime").style.display = "flex";
+  document.querySelector(".eTime").style.display = "flex";
+  isallday = false;}
+  else{
+      document.querySelector(".sTime").style.display = "none";
+  document.querySelector(".eTime").style.display = "none";
+isallday = true;}
+  
+  }
+if(delete_btn){
+      delete_btn.addEventListener("click", (e) => {
+        console.log("delete rqst sent")
+        e.preventDefault();
+        fetch(requiredUrl.textContent, { method: "DELETE" })
+          .then((response) => response.json())
+          .then((data) => {window.location.href = "/calendar" })
+          .catch((err) => console.log(err));
+      });
+    }
       if (btn.textContent == "Add") {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -109,7 +147,7 @@
           const sTime = form.sTime.value;
           const eTime = form.eTime.value;
           const createdBy = user.textContent;
-          console.log(sTime, eTime);
+        
 
            try {
              const res = await fetch("/createEvent", {
@@ -120,6 +158,7 @@
                  sTime,
                  eTime,
                  createdBy,
+                 isallday,
                }),
               headers: { "Content-Type": "application/json" },
             });
@@ -131,41 +170,37 @@
            }
         });
       }
-      if (btn.textContent == "Save") {
-        let title = document.getElementById("title");
-        let snippet = document.getElementById("snippet");
-        let body = document.getElementById("body");
-        // console.log(edit_body.textContent.title);
-        // title.placeholder = edit_body.title;
-        // snippet.placeholder = edit_body.snippet;
-        // body.placeholder = edit_body.body;
-      }
-
-      if (btn.textContent == "Save") {
+      if (btn.textContent == "Update") {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           // get values
-          const title = form.title.value;
-          const snippet = form.snippet.value;
-          const body = form.body.value;
+           const Ename = form.Ename.value;
+          const Eloc = form.Eloc.value;
+          const sTime = form.sTime.value;
+          const eTime = form.eTime.value;
           const createdBy = user.textContent;
-          try {
-            const res = await fetch(`${requiredUrl.textContent.trim()}`, {
-              method: "PUT",
-              body: JSON.stringify({
-                title,
-                snippet,
-                body,
-                createdBy,
-              }),
+          console.log("updating")
+    
+
+           try {
+             const res = await fetch(requiredUrl.textContent, {
+               method: "PUT",
+               body: JSON.stringify({
+                 Ename,
+                 Eloc,
+                 sTime,
+                 eTime,
+                 createdBy,
+                 isallday,
+               }),
               headers: { "Content-Type": "application/json" },
             });
-            const data = await res.json();
+             const data = await res.json();
 
-            location.assign("/allRecipes");
-          } catch (err) {
-            console.log(err);
-          }
+             location.assign("/calendar");
+           } catch (err) {
+           console.log(err);
+           }
         });
       }
     </script>

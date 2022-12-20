@@ -12,14 +12,16 @@ const calendarEventSchema = new mongoose.Schema(
     },
     sTime: {
       type: String,
-      required: true,
     },
     eTime: {
       type: String,
-      required: true,
     },
     createdBy: {
       type: String,
+      required: true,
+    },
+    isallday: {
+      type: Boolean,
       required: true,
     },
   },
