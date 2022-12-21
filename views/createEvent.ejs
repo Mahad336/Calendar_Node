@@ -31,12 +31,14 @@
         <div style="display: flex;">
         <label for="All day">All day</label>
         <input type="radio" id="allday" name="chooseEvent" value="All day"
-        onclick="show(1)" checked style="width: 20px; margin: 22px 0px 0px 69px;">
+        onclick="show(1)" style="width: 20px; margin: 22px 0px 0px 69px;">
         </div >
         <div style="display: flex;">
-        <label for="All day">Part of day</label>
+        <label for="partofday">Part of day</label>
         <input type="radio" id="partofday" name="chooseEvent" value="Part of day" onclick="show(0)" style="width: 20px; margin: 25px 0px 0px 40px;"></div>
-
+          <p id="getsTime" style="display: none;"><%=url.includes('edit') ? body?.sTime : "" %></p>
+          <p id="geteTime" style="display: none;"><%=url.includes('edit') ? body?.eTime : "" %></p>
+          <p id="checkallday" style="display: none;"><%=url.includes('edit') ? body?.isallday : "" %></p>
 
 
 
@@ -108,7 +110,9 @@
     <footer>Copyright &copy; Blog Ninja 2020</footer>
 
     <script>
-  
+      const getsTime = document.querySelector("#getsTime").textContent;
+      const geteTime = document.querySelector("#geteTime").textContent;
+      let checkallday = document.querySelector("#checkallday").textContent;
       const form = document.querySelector("form");
       const user = document.getElementById("user");
       const requiredUrl = document.getElementById("requiredUrl");
@@ -116,6 +120,15 @@
       const delete_btn = document.querySelector(".deletee");
       const edit_body = document.querySelector("#edit_body");
       let isallday = document.querySelector("#allday").checked;
+      
+      let allsTimes = document.querySelectorAll(".stime option");
+      allsTimes.forEach((e)=> e.textContent==getsTime ? e.selected ="true" : "")
+      let alleTimes = document.querySelectorAll(".etime option");
+      alleTimes.forEach((e)=> e.textContent==geteTime ? e.selected ="true" : "")
+      checkallday=="false" ? document.querySelector("#partofday").checked= "checked" : document.querySelector("#allday").checked= "checked"
+
+      checkallday=="false" ? document.querySelector(".sTime").style.display = "flex" : ""
+      checkallday=="false" ? document.querySelector(".eTime").style.display = "flex" : ""
 
 function show(x){
   if(x==0){
