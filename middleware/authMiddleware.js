@@ -37,7 +37,6 @@ const checkUser = (req, res, next) => {
     });
   } else {
     res.locals.user = null;
-    req.user = user;
     next();
   }
 };
