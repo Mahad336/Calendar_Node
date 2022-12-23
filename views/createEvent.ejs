@@ -119,7 +119,6 @@
       const btn = document.querySelector("button");
       const delete_btn = document.querySelector(".deletee");
       const edit_body = document.querySelector("#edit_body");
-      let isallday = document.querySelector("#allday").checked;
       
       let allsTimes = document.querySelectorAll(".stime option");
       allsTimes.forEach((e)=> e.textContent==getsTime ? e.selected ="true" : "")
@@ -129,6 +128,9 @@
 
       checkallday=="false" ? document.querySelector(".sTime").style.display = "flex" : ""
       checkallday=="false" ? document.querySelector(".eTime").style.display = "flex" : ""
+
+      
+    
 
 function show(x){
   if(x==0){
@@ -141,6 +143,7 @@ function show(x){
 isallday = true;}
   
   }
+  isallday = checkallday;
 if(delete_btn){
       delete_btn.addEventListener("click", (e) => {
         console.log("delete rqst sent")
@@ -184,6 +187,7 @@ if(delete_btn){
         });
       }
       if (btn.textContent == "Update") {
+        console.log(isallday)
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           // get values
@@ -196,6 +200,7 @@ if(delete_btn){
     
 
            try {
+            
              const res = await fetch(requiredUrl.textContent, {
                method: "PUT",
                body: JSON.stringify({
