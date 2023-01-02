@@ -47,8 +47,9 @@
           <option value="10:00am">10:00am</option>
           <option value="10:30am">10:30am</option>
           <option value="11:00am">11:00am</option>
-          <option value=11:30am">11:30am</option>
+          <option value="11:30am">11:30am</option>
           <option value="12:00pm">12:00pm</option>
+          <option value="12:30pm">12:30pm</option>
           <option value="1:00pm">1:00pm</option>
           <option value="1:30pm">1:30pm</option>
           <option value="2:00pm">2:00pm</option>
@@ -69,12 +70,13 @@
         <div class="eTime" style="display: none;">
         <label for="eTime">End Time:</label>
         <select id="title" class="eTime" name="eTime">
-          <option value="9:30am">9:30am</option>
-          <option value="10:00am">10:00am</option>
-          <option value="10:30am">10:30am</option>
+          <option value="9:30am" >9:30am</option>
+          <option value="10:00am" >10:00am</option>
+          <option value="10:30am" >10:30am</option>
           <option value="11:00am">11:00am</option>
           <option value=11:30am">11:30am</option>
           <option value="12:00pm">12:00pm</option>
+          <option value="12:30pm">12:30pm</option>
           <option value="1:00pm">1:00pm</option>
           <option value="1:30pm">1:30pm</option>
           <option value="2:00pm">2:00pm</option>
@@ -126,9 +128,7 @@
       checkallday=="false" ? document.querySelector(".sTime").style.display = "flex" : ""
       checkallday=="false" ? document.querySelector(".eTime").style.display = "flex" : ""
 
-      
-    
-
+  
 function show(x){
   if(x==0){
   document.querySelector(".sTime").style.display = "flex";
@@ -141,6 +141,30 @@ isallday = true;}
   
   }
   isallday = checkallday;
+
+   document.querySelector(".sTime").addEventListener('change' , ()=>{
+    
+    let allEndTimes = document.querySelectorAll(".eTime option");
+    allEndTimes.forEach((e)=> e.disabled = false)
+    if(form.sTime.value == "9:00am")
+        allEndTimes.forEach((e)=> e.disabled = false)
+    else
+    {
+    for(let i=0; i<allEndTimes.length ; i++){  
+       if(allEndTimes[i].textContent == form.sTime.value){
+        allEndTimes[i].disabled = true;
+         break;
+       }
+      else
+          allEndTimes[i].disabled = true;
+    }}
+    })
+          
+
+
+
+
+
 if(delete_btn){
       delete_btn.addEventListener("click", (e) => {
         console.log("delete rqst sent")
