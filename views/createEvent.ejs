@@ -159,7 +159,24 @@ isallday = true;}
           allEndTimes[i].disabled = true;
     }}
     })
-          
+    window.onload =()=>{
+    let allEndTimes = document.querySelectorAll(".eTime option");
+    allEndTimes.forEach((e)=> e.disabled = false)
+    if(form.sTime.value == "9:00am")
+        allEndTimes.forEach((e)=> e.disabled = false)
+    else
+    {
+    for(let i=0; i<allEndTimes.length ; i++){  
+       if(allEndTimes[i].textContent == form.sTime.value){
+        allEndTimes[i].disabled = true;
+         break;
+       }
+      else
+          allEndTimes[i].disabled = true;
+    }}
+    }
+   
+   
 
 
 
@@ -167,7 +184,7 @@ isallday = true;}
 
 if(delete_btn){
       delete_btn.addEventListener("click", (e) => {
-        console.log("delete rqst sent")
+  
         e.preventDefault();
         fetch(requiredUrl.textContent, { method: "DELETE" })
           .then((response) => response.json())
@@ -208,7 +225,7 @@ if(delete_btn){
         });
       }
       if (btn.textContent == "Update") {
-        console.log(isallday)
+        
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           // get values
@@ -217,7 +234,7 @@ if(delete_btn){
           const sTime = form.sTime.value;
           const eTime = form.eTime.value;
           const createdBy = user.textContent;
-          console.log("updating")
+          
     
 
            try {
