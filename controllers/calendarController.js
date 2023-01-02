@@ -13,11 +13,11 @@ module.exports.createEvent_post = (req, res) => {
       console.log(err);
     });
 };
-module.exports.createEvent_get = (req, res) => {
+module.exports.createEvent = (req, res) => {
   res.render("createEvent", { url: req.url });
 };
 
-module.exports.myEvents_get = (req, res) => {
+module.exports.myEvents = (req, res) => {
   CalendarEvent.find()
     .sort({ createdAt: -1 })
     .then((result) => {
@@ -37,7 +37,7 @@ module.exports.calender_home = (req, res) => {
       console.log(err);
     });
 };
-module.exports.event_edit_get = async (req, res) => {
+module.exports.event_edit = async (req, res) => {
   const id = req.params.id;
   let rslt = await CalendarEvent.findById(id);
 

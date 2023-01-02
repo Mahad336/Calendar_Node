@@ -20,15 +20,15 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 // database connection
-const dbURI =
-  "mongodb+srv://Mahad:Admin123@nodeauthmahad.idmutl2.mongodb.net/node-auth-tutorial";
+
+const dbURI = process.env.dbURI;
 mongoose.set("strictQuery", true);
 mongoose
   .connect(dbURI, {
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(process.env.PORT || 2000);
+    app.listen(process.env.PORT);
     console.log("connected");
   })
   .catch((err) => console.log(err));
