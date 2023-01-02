@@ -7,9 +7,7 @@ let newData;
 const currUSER = document.getElementById("currUSER").textContent;
 
 try {
-  const res = await fetch(
-    `https://calendarwithnode-production.up.railway.app/myEvents`
-  );
+  const res = await fetch(`http://localhost:3000/myEvents`);
   const data = await res.json();
   newData = data;
   //location.assign("/allRecipes");
