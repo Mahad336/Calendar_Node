@@ -7,7 +7,7 @@
   </head>
   <body>
     <nav>
-      <h1><a href="/">Mahad Smoothies</a></h1>
+      <h1><a href="/">Mahad Calendar</a></h1>
       <ul>
         <% if (user) { %>
         <li>
@@ -15,14 +15,10 @@
           Math.min((user.email).indexOf("." ),(user.email).indexOf("@"))) %>
         </li>
 
-        <li><a href="/myRecipes">My Recipes</a></li>
-        <li><a href="/allRecipes">All Recipes</a></li>
         <li><a href="/calendar">My Calendar</a></li>
-        <li><a href="/createSmoothie">Add new Recipe</a></li>
         <li><a href="/createEvent">Add Calendar Event</a></li>
         <li><a href="/logout">Log out</a></li>
         <% } else { %>
-        <li><a href="/allRecipes">All Recipes</a></li>
         <li><a href="/login">Log in</a></li>
         <li><a href="/signup" class="btn">Sign up</a></li>
         <% } %>
