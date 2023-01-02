@@ -158,6 +158,14 @@ isallday = true;}
       else
           allEndTimes[i].disabled = true;
     }}
+
+      for(let i=0;i<allEndTimes.length;i++){
+        if(allEndTimes[i].disabled == false){
+          allEndTimes[i].selected = "true";
+          break;
+        }
+      }
+
     })
     window.onload =()=>{
     let allEndTimes = document.querySelectorAll(".eTime option");
