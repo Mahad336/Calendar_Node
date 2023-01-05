@@ -1,13 +1,14 @@
 const { Router } = require("express");
-const crouter = Router();
+const calenderRouter = Router();
 const calendarController = require("../controllers/calendarController");
+const { requireAuth } = require("../middleware/authMiddleware");
 
-crouter.post("/createEvent", calendarController.createEvent_post);
-crouter.get("/createEvent", calendarController.createEvent);
-crouter.get("/calendar/:id/edit", calendarController.event_edit);
-crouter.put("/calendar/:id/edit", calendarController.event_edit_put);
-crouter.delete("/calendar/:id/edit", calendarController.event_delete);
-crouter.get("/myEvents", calendarController.myEvents);
-crouter.get("/calendar", calendarController.calender_home);
+calenderRouter.post("/createEvent", calendarController.createEvent_post);
+calenderRouter.get("/createEvent", calendarController.createEvent);
+calenderRouter.get("/calendar/:id/edit", calendarController.event_edit);
+calenderRouter.put("/calendar/:id/edit", calendarController.event_edit_put);
+calenderRouter.delete("/calendar/:id/edit", calendarController.event_delete);
+calenderRouter.get("/myEvents", calendarController.myEvents);
+calenderRouter.get("/calendar", requireAuth, calendarController.calender_home);
 
-module.exports = crouter;
+module.exports = calenderRouter;
